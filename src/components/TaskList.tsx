@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'react-toastify';
 
 import '../styles/tasklist.scss'
 
@@ -31,18 +32,32 @@ export function TaskList() {
   function handleToggleTaskCompletion(id: number) {
     // Altere entre `true` ou `false` o campo `isComplete` de uma task com dado ID
 
-    const findTask = tasks.findIndex(task => task.id === id);
+    try {
+      const findTask = tasks.findIndex(task => task.id === id);
 
-    const temporaryTasks = [...tasks];
+      const task = tasks.find(task => task.id === id);
 
-    temporaryTasks[findTask].isComplete = !temporaryTasks[findTask].isComplete;
+      const temporaryTasks = [...tasks];
 
-    setTasks(temporaryTasks);
+      temporaryTasks[findTask].isComplete = !temporaryTasks[findTask].isComplete;
+
+      setTasks(temporaryTasks);
+
+      toast.success(`Task ${task?.title} completa!`)
+    } catch {
+      toast.error('Erro ao remover a task')
+    }
   }
 
   function handleRemoveTask(id: number) {
     // Remova uma task da listagem pelo ID
-    setTasks(tasks.filter((task) => task.id !== id))
+    try {
+      setTasks(tasks.filter((task) => task.id !== id))
+
+      toast.success('Task removida 👌');
+    } catch {
+      toast.error('Erro ao remover a task 😞');
+    }
   }
 
   return (

@@ -1,13 +1,16 @@
 import { TaskList } from './components/TaskList'
 import { Header } from "./components/Header";
-import './styles/global.scss'
+import { ToastContainer } from 'react-toastify';
 
+import "!style-loader!css-loader!react-toastify/dist/ReactToastify.css"
+import './styles/global.scss'
 
 export function App() {
   return (
     <>
       <Header />
       <TaskList />
+      <ToastContainer autoClose={3000} />
     </>
   )
 }
