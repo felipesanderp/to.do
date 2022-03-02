@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify';
 
+import { EmptyPage } from '../components/EmptyPage';
+
 import '../styles/tasklist.scss'
 
 import { FiTrash, FiCheckSquare } from 'react-icons/fi'
@@ -79,8 +81,11 @@ export function TaskList() {
       </header>
 
       <main>
-        <ul>
-          {tasks.map(task => (
+        {tasks.length <= 0 
+          ? <EmptyPage /> 
+          : 
+          <ul>
+            {tasks.map(task => (
             <li key={task.id}>
               <div className={task.isComplete ? 'completed' : ''} data-testid="task" >
                 <label className="checkbox-container">
@@ -100,8 +105,7 @@ export function TaskList() {
               </button>
             </li>
           ))}
-          
-        </ul>
+        </ul>}
       </main>
     </section>
   )
